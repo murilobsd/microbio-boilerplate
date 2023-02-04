@@ -1,4 +1,5 @@
 use super::identity::Identity;
+use crate::identity::UniqueIdInt;
 
 pub trait Props {
     fn prop(&self) -> &Self;
@@ -31,14 +32,18 @@ impl IAnaProps for AnaProps {
 }
 
 #[derive(Debug, Clone)]
-pub struct Ana<I, P> {
+pub struct Ana<I: Identity, P> {
     _id: I,
     _props: P,
 }
 
-impl<I, P: IAnaProps> Ana<I, P> {
+impl<I: Identity, P: IAnaProps> Ana<I, P> {
     pub fn name(&self) -> &str {
         self._props.name()
+    }
+
+    pub fn id(&self) -> &I {
+        &self._id
     }
 }
 
@@ -55,11 +60,12 @@ impl<I: Identity, P: Props> Entity<I, P> for Ana<I, P> {
     }
 }
 
+type AnaImpl = Ana<UniqueIdInt, AnaProps>;
+
 #[cfg(test)]
 mod tests {
     use super::*;
 
-    use crate::identity::UniqueIdInt;
 
     #[test]
     fn should_create_ana() {
@@ -67,8 +73,9 @@ mod tests {
         let props = AnaProps {
             _name: "Aninha".to_string(),
         };
-        let ana: Ana<UniqueIdInt, AnaProps> = Ana::new(id, props);
+        let ana: AnaImpl = AnaImpl::new(id, props);
 
         assert_eq!(ana.name(), "Aninha");
+        assert_eq!(ana.id().to_string(), "1");
     }
 }
