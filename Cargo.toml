@@ -1,0 +1,13 @@
+[workspace]
+members = [
+  "domain",
+  "application",
+  "adapters-incoming/cli",
+  "adapters-incoming/rest",
+  "adapters-incoming/graphql",
+  "adapters-incoming/grpc",
+  "adapters-outgoing/persistence",
+  "adapters-outgoing/notify",
+  "adapters-outgoing/http",
+  "microbio",
+]

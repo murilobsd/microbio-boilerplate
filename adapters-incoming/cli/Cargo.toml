@@ -1,0 +1,13 @@
+[package]
+name = "microbio-cli"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = "1.0.68"
+microbio-graphql = { version = "0.1.0", path = "../graphql" }
+microbio-grpc = { version = "0.1.0", path = "../grpc" }
+microbio-rest = { version = "0.1.0", path = "../rest" }
+thiserror = "1.0.38"
